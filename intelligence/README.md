@@ -50,3 +50,30 @@ sales = pd.read_csv(
 ```
 
 Generated datasets and the local virtual environment are ignored by Git. Rerunning the CLI replaces generated outputs.
+
+## Demand foundation and empirical sign investigation
+
+Run after preprocessing:
+
+```bash
+.venv/bin/python -m intelligence.demand
+.venv/bin/python -m unittest discover -s intelligence/tests -v
+```
+
+The actual transaction workbook does **not** establish a single reliable sales/return sign convention. Neither positive-only, negative-only, signed-net, nor absolute quantities reproduce official monthly sales. The new demand pipeline therefore uses **official monthly sales as observed demand**, preserving negative net corrections. The old `transactions.csv` `demand` and `movement_type` columns reflect the initial provisional convention; **do not use them as verified demand**. `transaction_semantics_audit.csv` explicitly supersedes those interpretations, retaining every transaction and marking its semantics unresolved.
+
+`reconciliation.py` compares only matching SKU/month groups. It reports all-pair and complete-case metrics, sign/year distributions, and document types. A transaction month containing any missing quantity is incomplete, not a partial sum presented as a total. Missing reference values are never filled. Full-set MAE/RMSE/correlation/total differences are undefined in the presence of unknown values; full-set match rates are lower bounds. Near-match tolerance is one source unit. Complete-case metrics exclude both missing reference values and incomplete transaction groups.
+
+`demand.py` creates `demand.csv` with SKU, month-start date, year/month, observed demand, source and correction flag. Negative monthly net values are correction-like observations; they do not identify individual return documents. `corrections_audit.csv` preserves them, while `transaction_semantics_audit.csv` preserves every signed transaction independently.
+
+`outliers.py` uses only prior SKU history: at least six nonnegative, unflagged monthly observations within twelve calendar months. A candidate exceeds all three thresholds: median plus six robust scale units, the upper quartile plus three IQRs, and three times the median. Scale is the maximum of 1.4826 × MAD, IQR/1.349, and one quantity unit. Thresholds, historical sample counts, scores, and exclusions are saved in `regular_demand.csv` and `bulk_outliers_audit.csv`.
+
+Because the authoritative source is monthly, these flags identify **abnormal monthly periods, not confirmed one-time orders**. Seasonal peaks or persistent demand changes can also trigger flags and require review. Customer IDs do not exist in the supplied transaction schema. Flagged periods have missing regular demand, preventing them from inflating a future training series without inventing baseline quantities. Original observed values remain untouched. Negative correction periods also remain auditable and are excluded from regular demand; unknown observations stay unknown.
+
+`stockout.py` returns nullable stockout flags: observed stock <= 0 is evidence of stockout, observed positive stock is false, and missing stock is unknown. Monthly snapshots cannot prove availability throughout a month. The real data contain no observed stockout periods, so no real lost-demand correction is justified.
+
+`lost_demand.py` uses strictly earlier regular demand from known available-stock periods. With at least six observations it estimates a robust historical baseline, a bounded median pairwise trend, and (with 24 observations and two prior matching calendar months) a dimensionless within-SKU seasonal factor. Sparse seasonality uses factor 1. Aggregate seasonality values have unspecified units and are not mixed into SKU quantities. Trend is capped at 10% of the historical median per month; baseline is capped at three times the historical median. These are transparent heuristic estimates, not a trained forecasting model.
+
+Only a known stockout with known regular demand and sufficient history can receive an uplift. `estimated_lost_demand = max(0, baseline - regular_demand)` and `corrected_demand = regular_demand + estimated_lost_demand`. Missing inventory, insufficient history, or excluded/missing demand never creates an uplift. Unknown lost demand remains missing. Previously corrected demand is never fed back into the historical baseline. Every output includes a correction status and available baseline evidence.
+
+Additional outputs in `data/processed/`: `transaction_reconciliation.csv`, `transaction_sign_samples.csv`, `sign_reconciliation_report.json`, `stockouts.csv`, `corrected_demand.csv`, and `demand_summary.json`. The demand pipeline verifies raw-workbook hashes before and after processing. It does not overwrite the six original normalized source datasets.
