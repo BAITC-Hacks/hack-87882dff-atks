@@ -193,11 +193,11 @@ python -m venv .venv-intelligence
 
 ### 3.5. Создать таблицы и учебный товар
 
-[](/01.jpeg)
-[](/02.jpeg)
-[](/03.jpeg)
-[](/04.jpeg)
-[](/05.jpeg)
+![](/01.jpeg)
+![](/02.jpeg)
+![](/03.jpeg)
+![](/04.jpeg)
+![](/05.jpeg)
 ```powershell
 php setup.php
 php demo-demand.php
