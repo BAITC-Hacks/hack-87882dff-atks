@@ -193,11 +193,11 @@ python -m venv .venv-intelligence
 
 ### 3.5. Создать таблицы и учебный товар
 
-<img src="/01.jpeg" width="200">
-<img src="/02.jpeg" width="200">
-<img src="/03.jpeg" width="200">
-<img src="/04.jpeg" width="200">
-<img src="/05.jpeg" width="200">
+<img src="/01.jpeg" width="300">
+<img src="/02.jpeg" width="300">
+<img src="/03.jpeg" width="300">
+<img src="/04.jpeg" width="300">
+<img src="/05.jpeg" width="300">
 ```powershell
 php setup.php
 php demo-demand.php
