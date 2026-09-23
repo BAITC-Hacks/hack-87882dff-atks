@@ -3,6 +3,8 @@ Hackathon team repository for ATKS
 
 # SupplyMind AI
 
+![SupplyMind Architecture](goyma.jpeg)
+
 > Agentic AI-система для прогнозирования спроса и автоматического расчёта заказов поставщикам.
 
 **HackAlem AI 2026 — Logistics Track**
