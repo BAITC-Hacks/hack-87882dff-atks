@@ -3,7 +3,7 @@ Hackathon team repository for ATKS
 
 # SupplyMind AI
 
-![SupplyMind Architecture](goyma.jpeg)
+![SupplyMind Architecture](/qoyma.jpeg)
 
 > Agentic AI-система для прогнозирования спроса и автоматического расчёта заказов поставщикам.
 
