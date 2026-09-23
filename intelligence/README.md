@@ -1,6 +1,6 @@
 # Dataset preprocessing
 
-No model training or forecasting is implemented.
+Includes dataset preprocessing, validated forecasting/procurement, and optional OpenAI agent integration.
 
 From the repository root:
 
@@ -77,3 +77,133 @@ Because the authoritative source is monthly, these flags identify **abnormal mon
 Only a known stockout with known regular demand and sufficient history can receive an uplift. `estimated_lost_demand = max(0, baseline - regular_demand)` and `corrected_demand = regular_demand + estimated_lost_demand`. Missing inventory, insufficient history, or excluded/missing demand never creates an uplift. Unknown lost demand remains missing. Previously corrected demand is never fed back into the historical baseline. Every output includes a correction status and available baseline evidence.
 
 Additional outputs in `data/processed/`: `transaction_reconciliation.csv`, `transaction_sign_samples.csv`, `sign_reconciliation_report.json`, `stockouts.csv`, `corrected_demand.csv`, and `demand_summary.json`. The demand pipeline verifies raw-workbook hashes before and after processing. It does not overwrite the six original normalized source datasets.
+
+## Forecasting and quantity-based procurement
+
+Install the updated requirements, then run:
+
+```bash
+.venv/bin/python -m pip install -r intelligence/requirements.txt
+.venv/bin/python -m intelligence.forecast
+.venv/bin/python -m unittest discover -s intelligence/tests -v
+```
+
+`features.py` reindexes each SKU onto a monthly calendar before calculating lags. All rolling statistics operate on `regular_demand.shift(1)`; calendar seasonality uses only the known month number. Growth features compare earlier months, never the target. Unknown demand and excluded bulk/correction periods remain NaN. Rolling means require one available historical observation; standard deviations require two. `order_multiple` is deliberately excluded from model predictors because the current MOQ workbook provides no historical effective dates.
+
+The latest workbook month is conservatively treated as partial when the detailed extract ends before month-end within that same month. For the supplied data this excludes September 2026 targets and demand predictors; observations remain visible as `source_regular_demand` and `observed_demand`. October forecasts therefore lack a September lag. This is recorded in every forecast and is a limitation relative to the one-month walk-forward validation.
+
+Eligibility requires six prior nonmissing, nonnegative regular-demand months and an observation within the previous six months. The modeling table and a forecast eligibility file include counts and last usable dates. Initial history builds features; only eligible known targets train the model.
+
+`baseline.py` implements previous-month, previous-year, and three-month rolling mean forecasts. For fair comparison over the same validation rows, an unavailable primary prediction falls back to the past three-month mean, then the historical mean. Fallback counts are explicit. The metrics JSON also includes native baseline scores on available support and all models on common native support. Scores must be compared with their sample counts. WAPE is undefined when aggregate actual demand is zero; MAPE is not used.
+
+`forecast.py` fits six expanding-window CPU CatBoost models for March–August 2026 validation, with no random splitting or validation-driven early stopping. Parameters are fixed: 300 trees, depth 6, learning rate 0.05, RMSE loss, seed 42, two CPU threads. SKU is categorical; numerical missing features use CatBoost's native NaN handling. All predictions are clipped at zero. Reports contain overall, monthly, and descriptive per-SKU metrics (at least three validation observations). These six folds also select the production method by WAPE, so the result is model-selection performance, not an untouched final test result.
+
+A final CatBoost model is fitted on all eligible completed-month targets and saved even if a baseline wins. Production forecasts use the validation winner and explicitly record `effective_model_name` when falling back. `trend` is the most recent available historical one-month growth, with its feature date; it is not a confidence interval.
+
+`reorder.py` joins by SKU only. It uses the latest known inventory balance and retains its month; a balance older than the current source snapshot month requires review. A missing transit SKU is unknown, not zero. `Кратность` in the actual workbook is treated as `order_multiple`, and no independent minimum-order quantity is supplied. Missing/invalid inputs block calculated recommendations and produce explicit review reasons.
+
+The quantity-only scenario is:
+
+```text
+available_stock = current_stock + in_transit
+net_requirement = max(0, forecast_demand - available_stock)
+recommended_quantity = ceil(net_requirement / order_multiple) * order_multiple
+```
+
+Urgency is deterministic: `review_required` for unusable inputs; `covered` for zero recommended quantity; `stockout` for positive recommended quantity with observed stock zero; otherwise `replenish`. There is no invented lead time, safety stock, or delivery date. Transit timing is unverified, so these are reviewable one-month quantity scenarios, not purchase orders or guarantees of timely replenishment.
+
+Outputs:
+
+- `models/catboost.cbm` and `models/feature_schema.json` (including parameters and source hashes).
+- `data/processed/modeling_dataset.csv` and `forecast_eligibility.csv`.
+- `validation_predictions.csv` and `forecast_metrics.json`.
+- `forecasts.csv`, including selected/effective method, historical diagnostics, and excluded bulk quantity.
+- `procurement_recommendations.csv`, including available stock, net requirement, order multiples, deterministic urgency, JSON explanation components, and counterfactual orders without transit.
+
+Generated model files are ignored by Git. The pipeline verifies unchanged raw-workbook hashes and does not modify the source preprocessing or demand-cleaning outputs. The API and optional LLM integration are documented below; hardware integration is not included.
+
+## FastAPI and Agentic AI integration
+
+Architecture:
+
+```text
+Validated CSV/JSON artifacts → immutable service snapshot → deterministic tools
+                                    ↓                         ↓
+                               FastAPI endpoints       OpenAI tool selection
+                                                              ↓
+                                                allowlisted tool execution
+                                                              ↓
+                                             server-rendered verified answer
+```
+
+The validated forecasting, cleaning, and reorder algorithms are unchanged. The API exposes saved results. `POST /recalculate` invokes the existing `reorder.recommend` function on saved forecasts and source inputs; it does not retrain, accept numerical overrides, write artifacts, or submit orders. The service holds one consistent snapshot; restart it after externally regenerating pipeline outputs.
+
+Start locally:
+
+```bash
+.venv/bin/python -m pip install -r intelligence/requirements.txt
+.venv/bin/python -m uvicorn intelligence.api.main:app --host 127.0.0.1 --port 8000
+```
+
+Interactive schemas are available at `http://127.0.0.1:8000/docs`. This local service has no public authentication layer; keep it bound to loopback or behind an authenticated application gateway.
+
+| Endpoint | Result |
+|---|---|
+| `GET /health` | Status, selected forecasting method, forecast date/count, replenishment/review counts, and whether an agent key is configured |
+| `GET /forecast/{sku}` | Typed saved forecast and diagnostics; 404 if unavailable |
+| `GET /recommendation/{sku}` | Typed saved recommendation, explicit nulls, and explanation components |
+| `GET /recommendations` | All recommendations, with `total` and `items` |
+| `GET /recommendations?status=replenishment` | Positive order quantities |
+| `GET /recommendations?status=review_required` | Missing/invalid input review queue |
+| `GET /recommendations?status=transit_affected` | Orders reduced by goods in transit |
+| `POST /recalculate` | Existing deterministic reorder calculation for `{}` (all SKUs) or `{"sku":"030200203_"}` |
+| `POST /agent/run` | Procurement tool orchestration; 503 with a structured response if no key/provider is available |
+
+Environment variables:
+
+- `OPENAI_API_KEY`: optional; read exclusively from the process environment. Never included in responses, logs, or examples. `.env.example` contains a blank placeholder. No `.env` file is loaded automatically; inject the key through your environment or secret manager.
+- `OPENAI_MODEL`: optional Responses API model, default `gpt-4.1-mini`. Account/model access must be available when enabling the agent.
+
+All deterministic endpoints work without an OpenAI key. Health's `agent_available` indicates configuration, not a successful provider connectivity check. Missing artifacts produce a degraded health response and 503 on data endpoints.
+
+Examples:
+
+```bash
+curl http://127.0.0.1:8000/health
+curl http://127.0.0.1:8000/forecast/030200203_
+curl http://127.0.0.1:8000/recommendation/030200203_
+curl 'http://127.0.0.1:8000/recommendations?status=replenishment'
+curl 'http://127.0.0.1:8000/recommendations?status=review_required'
+curl -X POST http://127.0.0.1:8000/recalculate \
+  -H 'Content-Type: application/json' -d '{"sku":"030200203_"}'
+curl -X POST http://127.0.0.1:8000/agent/run \
+  -H 'Content-Type: application/json' \
+  -d '{"message":"Why should we order SKU 030200203_?"}'
+```
+
+The OpenAI integration follows the official [Responses API function-calling flow](https://developers.openai.com/api/docs/guides/function-calling): send strict function schemas, execute returned calls on the server, return outputs associated with each `call_id`, and preserve response items across rounds. Requests use `store=False`, a fixed official API base URL, bounded timeouts, at most six rounds, and at most twelve executed/attempted calls. With a configured key, user requests and selected tool results are transmitted to OpenAI; no environment variables or credentials are included in tool results.
+
+Tools: `get_forecast`, `get_inventory`, `get_in_transit`, `get_order_multiple`, `get_bulk_adjustments`, `get_recommendation`, `list_replenishment_recommendations`, `list_review_required`, `calculate_reorder`, and `list_transit_affected`. SKU tools accept only a SKU string; list tools accept no arguments. No shell, SQL, path, arbitrary quantity, supplier-submission, or approval tool exists.
+
+The LLM chooses the evidence to retrieve. **Public business facts and explanation text are rendered from the deterministic tool outputs**, rather than trusting generated numerical prose. Free-form model responses cannot overwrite quantities or grant approval. This intentionally limits narrative flexibility to prevent unsupported claims. Missing values serialize as JSON `null`, never NaN or invented zero. Missing supplier terms are explicitly identified. `requires_human_review` is always true because even complete recommendations require human purchase approval.
+
+Agent response shape:
+
+```json
+{
+  "answer": "SKU 030200203_: recommended quantity 900; ... Human approval is mandatory.",
+  "tools_used": ["get_recommendation"],
+  "data": {"status": "ok", "results": [{"tool": "get_recommendation", "result": {}}]},
+  "requires_human_review": true
+}
+```
+
+The actual `result` contains the complete authoritative tool payload. Unknown tools/extra arguments are rejected. Provider errors are sanitized; there is no raw exception or credential echo. The missing-key response is HTTP 503 with `data.status="agent_unavailable"` and an empty `tools_used` list.
+
+Validation:
+
+```bash
+.venv/bin/python -m unittest discover -s intelligence/tests -v
+```
+
+The complete suite has 38 tests, including the prior 22 algorithm tests plus API, recalculation, null-handling, missing-key, bounded-tool, and adversarial model-output tests. `data/processed/api_demo.json` records live localhost endpoint results and a **separately labeled simulated** agent tool trace. With no API key configured, the live agent endpoint invokes no tools and sends no provider request. No live paid model call was performed during this validation. Raw workbook hashes were verified unchanged. Jetson/RealSense remains outside this integration.

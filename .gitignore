@@ -2,3 +2,7 @@
 __pycache__/
 *.py[cod]
 intelligence/data/processed/
+intelligence/models/
+.env
+.env.*
+!.env.example
