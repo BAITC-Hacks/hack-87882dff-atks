@@ -1,0 +1,13 @@
+.env
+.env.*
+!.env.example
+.venv-intelligence/
+**/__pycache__/
+*.pyc
+intelligence/.env
+vendor/
+.expo/
+.tmp-composer/
+.tmp/
+*.log
+web/node_modules/

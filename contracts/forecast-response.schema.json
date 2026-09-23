@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SupplyMind forecast response v1.0",
+  "type": "object",
+  "required": ["contract_version", "recommendations"],
+  "properties": {
+    "contract_version": { "const": "1.0" },
+    "recommendations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["sku", "warehouse_id", "current_stock", "in_transit", "forecast_demand", "lost_demand", "excluded_one_time_order", "stockout_days", "supplier", "recommended_quantity", "urgency", "explanation", "horizon_days", "lead_time_days", "seasonality_index", "seasonality_note", "demand_growth_percent", "average_daily_demand"],
+        "properties": {
+          "sku": { "type": "string", "minLength": 1 },
+          "warehouse_id": { "type": "integer", "minimum": 1 },
+          "current_stock": { "type": "integer", "minimum": 0 },
+          "in_transit": { "type": "integer", "minimum": 0 },
+          "forecast_demand": { "type": "integer", "minimum": 0 },
+          "lost_demand": { "type": "integer", "minimum": 0 },
+          "excluded_one_time_order": { "type": "integer", "minimum": 0 },
+          "stockout_days": { "type": "integer", "minimum": 0, "maximum": 30 },
+          "supplier": { "type": "object", "required": ["id"], "properties": { "id": { "type": "integer", "minimum": 1 } } },
+          "recommended_quantity": { "type": "integer", "minimum": 0 },
+          "urgency": { "enum": ["critical", "normal", "none"] },
+          "explanation": { "type": "string", "minLength": 1 },
+          "horizon_days": { "type": "integer", "minimum": 1 },
+          "lead_time_days": { "type": "integer", "minimum": 1 },
+          "seasonality_index": { "type": "number", "minimum": 0 },
+          "seasonality_note": { "type": "string", "minLength": 1 },
+          "demand_growth_percent": { "type": "number" },
+          "average_daily_demand": { "type": "number", "minimum": 0 }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "smartstock/backend",
+  "description": "SmartStock AI hackathon backend on plain PHP, RedBeanPHP and MySQL.",
+  "type": "project",
+  "license": "proprietary",
+  "require": {
+    "php": ">=8.0",
+    "gabordemooij/redbean": "^5.7"
+  },
+  "autoload": {
+    "psr-4": {
+      "SmartStock\\": "src/"
+    }
+  }
+}

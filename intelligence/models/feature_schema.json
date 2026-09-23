@@ -1,0 +1,55 @@
+{
+  "features": [
+    "sku",
+    "month_of_year",
+    "quarter",
+    "time_index",
+    "month_sin",
+    "month_cos",
+    "lag_1",
+    "lag_2",
+    "lag_3",
+    "lag_6",
+    "lag_12",
+    "rolling_mean_3",
+    "rolling_mean_6",
+    "rolling_mean_12",
+    "rolling_std_3",
+    "rolling_std_6",
+    "growth_1",
+    "growth_3",
+    "history_mean"
+  ],
+  "categorical_features": [
+    "sku"
+  ],
+  "target": "stockout_corrected_regular_demand",
+  "parameters": {
+    "iterations": 300,
+    "depth": 6,
+    "learning_rate": 0.05,
+    "loss_function": "RMSE",
+    "random_seed": 42,
+    "thread_count": 2,
+    "task_type": "CPU",
+    "verbose": false,
+    "allow_writing_files": false
+  },
+  "missing_features": "CatBoost native numeric NaN; no zero imputation",
+  "order_multiple": "excluded from predictors: no historically effective dates; used only for current procurement",
+  "selected_model": "per_sku_backtest",
+  "global_fallback_model": "previous_month",
+  "seasonal_trend": "lag_12 * median(last six prior year-on-year ratios); min 3 ratios, bounded [0.5, 2.0]",
+  "baseline_fallback": "native predictor, then past rolling_mean_3, then past history_mean",
+  "eligibility": "at least six prior usable months; last usable demand within six months",
+  "growth_1": "(lag_1-lag_2)/lag_2 when lag_2>0",
+  "growth_3": "(lag_1-lag_4)/lag_4 when lag_4>0",
+  "raw_sha256": {
+    "ƒинамика продаж_Syseme Electric_2025-2026.xlsx": "5ca3997c13f1f65d73db5141122b92deab64f1029bf9b43fd3dd7ade65151128",
+    "≈жемес€чные продажи в кол-м выражении SystemElectric 2024-2026.xlsx": "f7782ab9ea5c06d68526543953c6fce7ca83a80d1c1a4e8d88fd083de415f9d0",
+    "≈жемес€чные остатки SystemElectric 2024-2026.xlsx": "45d55eb244966ef9fdba1aa09c666e9dbc4c0b05c1088f4041edcd86b908c85e",
+    "MOQ SystemElectric.xlsx": "4fc809ecf9c0a73d97f13f7a16e7dbb20425ab97a6b2d9a0f6be0bbe1a326a7b",
+    "“овар в пути_SystemElectric на 22.09.2026.xlsx": "17aa50b7697aba5598997b1b4bba9de3950169bc81e97fd10c4d8b0348bd9a3d",
+    "—езонность SystemElectric 2024-2026.xlsx": "19bdbc1c2331d3643e39294f68f11f7427f625107e8b025f6663bb559af669ab"
+  }
+}

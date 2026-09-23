@@ -1,0 +1,7 @@
+{
+  "name": "supplymind-manager",
+  "private": true,
+  "type": "module",
+  "version": "1.0.0",
+  "dependencies": { "lucide": "^0.468.0" }
+}

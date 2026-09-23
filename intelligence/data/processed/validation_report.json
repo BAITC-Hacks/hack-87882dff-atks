@@ -1,0 +1,894 @@
+{
+  "checks": {
+    "raw_workbooks_unchanged": true,
+    "transactions_sku_no_null_or_whitespace": true,
+    "monthly_sales_sku_no_null_or_whitespace": true,
+    "monthly_inventory_sku_no_null_or_whitespace": true,
+    "moq_sku_no_null_or_whitespace": true,
+    "goods_in_transit_sku_no_null_or_whitespace": true,
+    "transactions_row_count_matches_report": true,
+    "transactions_duplicate_counts_match_report": true,
+    "transactions_quantity_numeric_and_finite": true,
+    "transactions_demand_numeric_and_finite": true,
+    "transactions_valid_dates": true,
+    "monthly_sales_row_count_matches_report": true,
+    "monthly_sales_duplicate_counts_match_report": true,
+    "monthly_sales_demand_numeric_and_finite": true,
+    "monthly_sales_valid_dates": true,
+    "monthly_sales_33_months_per_sku": true,
+    "monthly_inventory_row_count_matches_report": true,
+    "monthly_inventory_duplicate_counts_match_report": true,
+    "monthly_inventory_stock_numeric_and_finite": true,
+    "monthly_inventory_valid_dates": true,
+    "monthly_inventory_33_months_per_sku": true,
+    "moq_row_count_matches_report": true,
+    "moq_duplicate_counts_match_report": true,
+    "moq_order_multiple_numeric_and_finite": true,
+    "goods_in_transit_row_count_matches_report": true,
+    "goods_in_transit_duplicate_counts_match_report": true,
+    "goods_in_transit_in_transit_quantity_numeric_and_finite": true,
+    "seasonality_row_count_matches_report": true,
+    "seasonality_duplicate_counts_match_report": true,
+    "seasonality_value_numeric_and_finite": true,
+    "seasonality_valid_dates": true,
+    "outgoing_demand_equals_negative_quantity": true,
+    "positive_movements_have_missing_demand": true,
+    "missing_quantities_have_missing_demand": true,
+    "transaction_demand_nonnegative": true,
+    "moq_order_multiple_positive_integer": true,
+    "in_transit_quantity_nonnegative": true,
+    "stock_nonnegative": true,
+    "transactions_all_sku_identifiers_match_raw": true,
+    "transactions_all_values_and_nulls_match_raw": true,
+    "monthly_sales_all_sku_identifiers_match_raw": true,
+    "monthly_sales_all_values_and_nulls_match_raw": true,
+    "monthly_inventory_all_sku_identifiers_match_raw": true,
+    "monthly_inventory_all_values_and_nulls_match_raw": true,
+    "moq_all_sku_identifiers_match_raw": true,
+    "moq_all_values_and_nulls_match_raw": true,
+    "goods_in_transit_all_sku_identifiers_match_raw": true,
+    "goods_in_transit_all_values_and_nulls_match_raw": true
+  },
+  "all_checks_passed": true,
+  "stats": {
+    "transactions": {
+      "rows": 77312,
+      "missing": {
+        "date": 0,
+        "document_number": 0,
+        "document": 0,
+        "sku": 0,
+        "product_name": 0,
+        "unit": 0,
+        "warehouse": 0,
+        "quantity": 13,
+        "source_row": 0,
+        "date_raw": 0,
+        "quantity_raw": 13,
+        "demand": 77010,
+        "movement_type": 0
+      },
+      "numeric": {
+        "quantity": {
+          "min": -260.0,
+          "max": 90000.0,
+          "negative": 302,
+          "positive": 76997,
+          "zero": 0,
+          "missing": 13,
+          "fractional": 0
+        },
+        "demand": {
+          "min": 1.0,
+          "max": 260.0,
+          "negative": 0,
+          "positive": 302,
+          "zero": 0,
+          "missing": 77010,
+          "fractional": 0
+        }
+      },
+      "duplicate_rows": 0,
+      "duplicate_keys": 0,
+      "date_range": [
+        "2023-01-18T16:00:11",
+        "2026-09-22T16:10:12"
+      ],
+      "sku_mismatches": [],
+      "value_mismatches_against_raw": 0
+    },
+    "monthly_sales": {
+      "rows": 18282,
+      "missing": {
+        "sku": 0,
+        "source_row": 0,
+        "date": 0,
+        "demand": 7105
+      },
+      "numeric": {
+        "demand": {
+          "min": -1310.0,
+          "max": 67138.0,
+          "negative": 323,
+          "positive": 10854,
+          "zero": 0,
+          "missing": 7105,
+          "fractional": 0
+        }
+      },
+      "duplicate_rows": 0,
+      "duplicate_keys": 0,
+      "date_range": [
+        "2024-01-01T00:00:00",
+        "2026-09-01T00:00:00"
+      ],
+      "sku_mismatches": [],
+      "value_mismatches_against_raw": 0
+    },
+    "monthly_inventory": {
+      "rows": 23133,
+      "missing": {
+        "sku": 0,
+        "source_row": 0,
+        "date": 0,
+        "stock": 5133
+      },
+      "numeric": {
+        "stock": {
+          "min": 1.0,
+          "max": 277173.0,
+          "negative": 0,
+          "positive": 18000,
+          "zero": 0,
+          "missing": 5133,
+          "fractional": 0
+        }
+      },
+      "duplicate_rows": 0,
+      "duplicate_keys": 0,
+      "date_range": [
+        "2024-01-01T00:00:00",
+        "2026-09-01T00:00:00"
+      ],
+      "sku_mismatches": [],
+      "value_mismatches_against_raw": 0
+    },
+    "moq": {
+      "rows": 554,
+      "missing": {
+        "№": 0,
+        "product_name": 0,
+        "sku": 0,
+        "article": 0,
+        "order_multiple": 0,
+        "source_row": 0
+      },
+      "numeric": {
+        "order_multiple": {
+          "min": 1.0,
+          "max": 3780.0,
+          "negative": 0,
+          "positive": 554,
+          "zero": 0,
+          "missing": 0,
+          "fractional": 0
+        }
+      },
+      "duplicate_rows": 0,
+      "duplicate_keys": 0,
+      "sku_mismatches": [],
+      "value_mismatches_against_raw": 0
+    },
+    "goods_in_transit": {
+      "rows": 497,
+      "missing": {
+        "№": 0,
+        "supplier_article": 0,
+        "sku": 0,
+        "product_name": 0,
+        "category_2026": 0,
+        "СС реал": 0,
+        "Январь 2024 г.": 214,
+        "Февраль 2024 г.": 214,
+        "Март 2024 г.": 214,
+        "Апрель 2024 г.": 214,
+        "Май 2024 г.": 193,
+        "Июнь 2024 г.": 193,
+        "Июль 2024 г.": 193,
+        "Август 2024 г.": 21,
+        "Сентябрь 2024 г.": 20,
+        "Октябрь 2024 г.": 20,
+        "Ноябрь 2024 г.": 20,
+        "Декабрь 2024 г.": 20,
+        "Продажи 2024": 1,
+        "Ср мес 2024": 1,
+        "Январь 2025 г.": 11,
+        "Февраль 2025 г.": 11,
+        "Март 2025 г.": 11,
+        "Апрель 2025 г.": 1,
+        "Май 2025 г.": 1,
+        "Июнь 2025 г.": 1,
+        "Июль 2025 г.": 1,
+        "Август 2025 г.": 1,
+        "Сентябрь 2025 г.": 1,
+        "Октябрь 2025 г.": 1,
+        "Ноябрь 2025 г.": 1,
+        "Декабрь 2025 г.": 1,
+        "Январь 2026 г.": 1,
+        "Февраль 2026 г.": 1,
+        "Март 2026 г.": 1,
+        "Апрель 2026 г.": 0,
+        "Май 2026 г.": 0,
+        "Июнь 2026 г.": 0,
+        "Июль 2026 г.": 0,
+        "Август 2026 г.": 0,
+        "Сентябрь 2026 г.": 0,
+        "Сумма последние 12 мес": 0,
+        "Ср мес за последние 12 мес": 0,
+        "Кэф. Роста": 0,
+        "Кэф. Сез-ти": 0,
+        "Витрина": 0,
+        "Остаток ТЗ": 0,
+        "РЦ ЕКТ  Рыскулова": 0,
+        "Розничный склад": 0,
+        "Остаток": 0,
+        "Зарезервировано": 0,
+        "Свободный остаток": 0,
+        "Запас": 0,
+        "Заказ": 497,
+        "in_transit_quantity": 0,
+        "source_column_56": 497,
+        "source_column_57": 497,
+        "source_column_58": 497,
+        "source_column_59": 497,
+        "Вес": 497,
+        "source_column_61": 497,
+        "source_column_62": 497,
+        "source_column_63": 497,
+        "source_column_64": 497,
+        "source_column_65": 497,
+        "source_column_66": 497,
+        "source_column_67": 497,
+        "source_column_68": 497,
+        "source_column_69": 497,
+        "source_column_70": 497,
+        "source_row": 0
+      },
+      "numeric": {
+        "in_transit_quantity": {
+          "min": 0.0,
+          "max": 37800.0,
+          "negative": 0,
+          "positive": 7,
+          "zero": 490,
+          "missing": 0,
+          "fractional": 0
+        }
+      },
+      "duplicate_rows": 0,
+      "duplicate_keys": 0,
+      "sku_mismatches": [],
+      "value_mismatches_against_raw": 0
+    },
+    "seasonality": {
+      "rows": 36,
+      "missing": {
+        "date": 0,
+        "value": 3,
+        "source_row": 0
+      },
+      "numeric": {
+        "value": {
+          "min": 22395512.0,
+          "max": 99082123.0,
+          "negative": 0,
+          "positive": 33,
+          "zero": 0,
+          "missing": 3,
+          "fractional": 12
+        }
+      },
+      "duplicate_rows": 0,
+      "duplicate_keys": 0,
+      "date_range": [
+        "2024-01-01T00:00:00",
+        "2026-12-01T00:00:00"
+      ]
+    }
+  },
+  "join_coverage": {
+    "transactions": {
+      "unique_skus": 565,
+      "matched_sales_skus": 545,
+      "sales_universe_count": 554,
+      "sales_universe_coverage_pct": 98.38,
+      "dataset_skus_in_sales_pct": 96.46,
+      "sales_skus_missing": [
+        "030200025_",
+        "030200052_",
+        "030200053_",
+        "030200094_",
+        "030200261_",
+        "030200292_",
+        "300200447_",
+        "300200568_",
+        "300200906_"
+      ],
+      "extra_skus_outside_sales": [
+        "030200075_",
+        "030200076_",
+        "030200295_",
+        "030200296_",
+        "030200297_",
+        "030200298_",
+        "030200399_",
+        "300200404_",
+        "300200412_",
+        "300200417_",
+        "300200454_",
+        "300200456_",
+        "300200458_",
+        "300200469_",
+        "300200495_",
+        "300200635_",
+        "300200891_",
+        "ATN001209",
+        "GAL000584",
+        "RAT-1A3-B"
+      ]
+    },
+    "monthly_sales": {
+      "unique_skus": 554,
+      "matched_sales_skus": 554,
+      "sales_universe_count": 554,
+      "sales_universe_coverage_pct": 100.0,
+      "dataset_skus_in_sales_pct": 100.0,
+      "sales_skus_missing": [],
+      "extra_skus_outside_sales": []
+    },
+    "monthly_inventory": {
+      "unique_skus": 701,
+      "matched_sales_skus": 554,
+      "sales_universe_count": 554,
+      "sales_universe_coverage_pct": 100.0,
+      "dataset_skus_in_sales_pct": 79.03,
+      "sales_skus_missing": [],
+      "extra_skus_outside_sales": [
+        "030200010_",
+        "030200011_",
+        "030200012_",
+        "030200013_",
+        "030200016_",
+        "030200042_",
+        "030200045_",
+        "030200047_",
+        "030200060_",
+        "030200062_",
+        "030200063_",
+        "030200069_",
+        "030200073_",
+        "030200075_",
+        "030200076_",
+        "030200092_",
+        "030200105_",
+        "030200125_",
+        "030200126_",
+        "030200129_",
+        "030200140_",
+        "030200143_",
+        "030200174_",
+        "030200179_",
+        "030200184_",
+        "030200194_",
+        "030200198_",
+        "030200200_",
+        "030200264_",
+        "030200266_",
+        "030200295_",
+        "030200296_",
+        "030200297_",
+        "030200298_",
+        "030200322_",
+        "030200323_",
+        "030200330_",
+        "030200331_",
+        "030200345",
+        "030200372_",
+        "030200399_",
+        "300100004_",
+        "300100018_",
+        "300200285_",
+        "300200351_",
+        "300200404_",
+        "300200410_",
+        "300200412_",
+        "300200417_",
+        "300200423_",
+        "300200442_",
+        "300200454_",
+        "300200456_",
+        "300200458_",
+        "300200469_",
+        "300200495_",
+        "300200635_",
+        "300200891_",
+        "300200956_",
+        "ATN000139",
+        "ATN000330",
+        "ATN000393",
+        "ATN000439",
+        "ATN000449",
+        "ATN000487",
+        "ATN000493",
+        "ATN000499",
+        "ATN000724",
+        "ATN001105",
+        "ATN001130",
+        "ATN001132",
+        "ATN001133",
+        "ATN001209",
+        "ATN001230",
+        "ATN001233",
+        "ATN001239",
+        "ATN001302",
+        "ATN001420",
+        "ATN200101",
+        "ATN200102",
+        "ATN200111",
+        "ATN200145",
+        "ATN540113",
+        "ATN544013",
+        "BLNIA045003",
+        "BLNRA000315",
+        "BLNRA000415",
+        "BLNRA010213",
+        "BLNRA010215",
+        "BLNRA010312",
+        "BLNRA010313",
+        "BLNRA010314",
+        "BLNRA010315",
+        "BLNRA110115",
+        "BLNVA101013",
+        "BLNVA101014",
+        "BLNVA101015",
+        "BLNVA105013",
+        "BLNVA105014",
+        "BLNVA105015",
+        "BLNVA106012",
+        "BLNVA106013",
+        "BLNVA106014",
+        "GAL000584",
+        "GSL000185KK",
+        "KD-2-48",
+        "KD-2-88",
+        "KD-3-48",
+        "KD-RS254-18",
+        "RA10-164-BI",
+        "RA16-213-BI",
+        "RAT-1A3-B",
+        "RS16-212-S",
+        "RS6-253-18",
+        "RSI-251KK5E-28",
+        "RT-4A3-B",
+        "S56-043-BI",
+        "VA1U-112-B",
+        "VA510-228B-BI",
+        "VS116-153-1-86",
+        "VS116-154-1-86",
+        "VS516-252-18",
+        "WDE000151",
+        "WDE000185",
+        "WDE000193",
+        "WDE000195",
+        "WDE000302",
+        "WDE000303",
+        "WDE000304",
+        "WDE000311",
+        "WDE000351",
+        "WDE000381",
+        "WDE000391",
+        "WDE000403",
+        "WDE000404",
+        "WDE000411",
+        "WDE000413",
+        "WDE000431",
+        "WDE000436",
+        "WDE000441",
+        "WDE000448",
+        "WDE000451",
+        "WDE000461",
+        "WDE000471",
+        "WDE000481",
+        "WDE000493",
+        "яярп5490"
+      ]
+    },
+    "moq": {
+      "unique_skus": 554,
+      "matched_sales_skus": 554,
+      "sales_universe_count": 554,
+      "sales_universe_coverage_pct": 100.0,
+      "dataset_skus_in_sales_pct": 100.0,
+      "sales_skus_missing": [],
+      "extra_skus_outside_sales": []
+    },
+    "goods_in_transit": {
+      "unique_skus": 497,
+      "matched_sales_skus": 469,
+      "sales_universe_count": 554,
+      "sales_universe_coverage_pct": 84.66,
+      "dataset_skus_in_sales_pct": 94.37,
+      "sales_skus_missing": [
+        "030200002_",
+        "030200003_",
+        "030200005_",
+        "030200006_",
+        "030200007_",
+        "030200008_",
+        "030200009_",
+        "030200015_",
+        "030200025_",
+        "030200026_",
+        "030200027_",
+        "030200028_",
+        "030200029_",
+        "030200030_",
+        "030200031_",
+        "030200032_",
+        "030200034_",
+        "030200036_",
+        "030200037_",
+        "030200038_",
+        "030200039_",
+        "030200052_",
+        "030200053_",
+        "030200054_",
+        "030200072_",
+        "030200090_",
+        "030200093_",
+        "030200094_",
+        "030200095_",
+        "030200096_",
+        "030200097_",
+        "030200127_",
+        "030200128_",
+        "030200134_",
+        "030200135_",
+        "030200136_",
+        "030200141_",
+        "030200142_",
+        "030200175_",
+        "030200176_",
+        "030200183_",
+        "030200191_",
+        "030200239_",
+        "030200240_",
+        "030200243_",
+        "030200244_",
+        "030200245_",
+        "030200246_",
+        "030200247_",
+        "030200248_",
+        "030200249_",
+        "030200250_",
+        "030200251_",
+        "030200252_",
+        "030200253_",
+        "030200254_",
+        "030200256_",
+        "030200257_",
+        "030200258_",
+        "030200259_",
+        "030200260_",
+        "030200261_",
+        "030200262_",
+        "030200263_",
+        "030200265_",
+        "030200292_",
+        "030200379_",
+        "030200382_",
+        "030300013_",
+        "030300078_",
+        "300100003_",
+        "300100006_",
+        "300100012_",
+        "300100015_",
+        "300200419_",
+        "300200447_",
+        "300200473_",
+        "300200497_",
+        "ATN000389",
+        "ATN000399",
+        "ATN000532",
+        "ATN001232",
+        "ATN540115",
+        "ATN544015",
+        "щщщ0116254"
+      ],
+      "extra_skus_outside_sales": [
+        "030200075_",
+        "030200076_",
+        "030200375_",
+        "030200381_",
+        "300200335_",
+        "300200362_",
+        "300200369_",
+        "300200427_",
+        "300200442_",
+        "300200474_",
+        "300200528_",
+        "300200578_",
+        "300200586_",
+        "300200589_",
+        "300200594_",
+        "300200622_",
+        "300200623_",
+        "300200627_",
+        "300200780_",
+        "300200891_",
+        "300200961_",
+        "300200962_",
+        "300200963_",
+        "300200964_",
+        "300200965_",
+        "300200966_",
+        "ATN000330",
+        "ATN000539"
+      ]
+    }
+  },
+  "pairwise_sku_intersection_counts": {
+    "transactions": {
+      "transactions": 565,
+      "monthly_sales": 545,
+      "monthly_inventory": 565,
+      "moq": 545,
+      "goods_in_transit": 470
+    },
+    "monthly_sales": {
+      "transactions": 545,
+      "monthly_sales": 554,
+      "monthly_inventory": 554,
+      "moq": 554,
+      "goods_in_transit": 469
+    },
+    "monthly_inventory": {
+      "transactions": 565,
+      "monthly_sales": 554,
+      "monthly_inventory": 701,
+      "moq": 554,
+      "goods_in_transit": 474
+    },
+    "moq": {
+      "transactions": 545,
+      "monthly_sales": 554,
+      "monthly_inventory": 554,
+      "moq": 554,
+      "goods_in_transit": 469
+    },
+    "goods_in_transit": {
+      "transactions": 470,
+      "monthly_sales": 469,
+      "monthly_inventory": 474,
+      "moq": 469,
+      "goods_in_transit": 497
+    }
+  },
+  "skus_shared_by_all_five": 467,
+  "random_sku_examples_seed_42": {
+    "ATN200145": {
+      "monthly_inventory": {
+        "raw": "ATN200145",
+        "processed": "ATN200145",
+        "source_row": 49
+      }
+    },
+    "030200257_": {
+      "transactions": {
+        "raw": "030200257_",
+        "processed": "030200257_",
+        "source_row": 9155
+      },
+      "monthly_sales": {
+        "raw": "030200257_",
+        "processed": "030200257_",
+        "source_row": 396
+      },
+      "monthly_inventory": {
+        "raw": "030200257_",
+        "processed": "030200257_",
+        "source_row": 480
+      },
+      "moq": {
+        "raw": "030200257_",
+        "processed": "030200257_",
+        "source_row": 396
+      }
+    },
+    "030200012_": {
+      "monthly_inventory": {
+        "raw": "030200012_",
+        "processed": "030200012_",
+        "source_row": 433
+      }
+    },
+    "300200466_": {
+      "transactions": {
+        "raw": "300200466_",
+        "processed": "300200466_",
+        "source_row": 270
+      },
+      "monthly_sales": {
+        "raw": "300200466_",
+        "processed": "300200466_",
+        "source_row": 343
+      },
+      "monthly_inventory": {
+        "raw": "300200466_",
+        "processed": "300200466_",
+        "source_row": 408
+      },
+      "moq": {
+        "raw": "300200466_",
+        "processed": "300200466_",
+        "source_row": 343
+      },
+      "goods_in_transit": {
+        "raw": "300200466_",
+        "processed": "300200466_",
+        "source_row": 236
+      }
+    },
+    "300200432_": {
+      "transactions": {
+        "raw": "300200432_",
+        "processed": "300200432_",
+        "source_row": 1356
+      },
+      "monthly_sales": {
+        "raw": "300200432_",
+        "processed": "300200432_",
+        "source_row": 473
+      },
+      "monthly_inventory": {
+        "raw": "300200432_",
+        "processed": "300200432_",
+        "source_row": 561
+      },
+      "moq": {
+        "raw": "300200432_",
+        "processed": "300200432_",
+        "source_row": 473
+      },
+      "goods_in_transit": {
+        "raw": "300200432_",
+        "processed": "300200432_",
+        "source_row": 9
+      }
+    },
+    "300200378_": {
+      "transactions": {
+        "raw": "300200378_",
+        "processed": "300200378_",
+        "source_row": 305
+      },
+      "monthly_sales": {
+        "raw": "300200378_",
+        "processed": "300200378_",
+        "source_row": 244
+      },
+      "monthly_inventory": {
+        "raw": "300200378_",
+        "processed": "300200378_",
+        "source_row": 309
+      },
+      "moq": {
+        "raw": "300200378_",
+        "processed": "300200378_",
+        "source_row": 244
+      },
+      "goods_in_transit": {
+        "raw": "300200378_",
+        "processed": "300200378_",
+        "source_row": 81
+      }
+    },
+    "030300014_": {
+      "transactions": {
+        "raw": "030300014_",
+        "processed": "030300014_",
+        "source_row": 755
+      },
+      "monthly_sales": {
+        "raw": "030300014_",
+        "processed": "030300014_",
+        "source_row": 22
+      },
+      "monthly_inventory": {
+        "raw": "030300014_",
+        "processed": "030300014_",
+        "source_row": 36
+      },
+      "moq": {
+        "raw": "030300014_",
+        "processed": "030300014_",
+        "source_row": 22
+      },
+      "goods_in_transit": {
+        "raw": "030300014_",
+        "processed": "030300014_",
+        "source_row": 479
+      }
+    },
+    "030200246_": {
+      "transactions": {
+        "raw": "030200246_",
+        "processed": "030200246_",
+        "source_row": 38539
+      },
+      "monthly_sales": {
+        "raw": "030200246_",
+        "processed": "030200246_",
+        "source_row": 387
+      },
+      "monthly_inventory": {
+        "raw": "030200246_",
+        "processed": "030200246_",
+        "source_row": 471
+      },
+      "moq": {
+        "raw": "030200246_",
+        "processed": "030200246_",
+        "source_row": 387
+      }
+    },
+    "S56-043-BI": {
+      "monthly_inventory": {
+        "raw": "S56-043-BI",
+        "processed": "S56-043-BI",
+        "source_row": 605
+      }
+    },
+    "300200908_": {
+      "transactions": {
+        "raw": "300200908_",
+        "processed": "300200908_",
+        "source_row": 53838
+      },
+      "monthly_sales": {
+        "raw": "300200908_",
+        "processed": "300200908_",
+        "source_row": 176
+      },
+      "monthly_inventory": {
+        "raw": "300200908_",
+        "processed": "300200908_",
+        "source_row": 240
+      },
+      "moq": {
+        "raw": "300200908_",
+        "processed": "300200908_",
+        "source_row": 176
+      },
+      "goods_in_transit": {
+        "raw": "300200908_",
+        "processed": "300200908_",
+        "source_row": 409
+      }
+    }
+  },
+  "raw_sha256_before": {
+    "transactions": "5ca3997c13f1f65d73db5141122b92deab64f1029bf9b43fd3dd7ade65151128",
+    "monthly_sales": "f7782ab9ea5c06d68526543953c6fce7ca83a80d1c1a4e8d88fd083de415f9d0",
+    "monthly_inventory": "45d55eb244966ef9fdba1aa09c666e9dbc4c0b05c1088f4041edcd86b908c85e",
+    "moq": "4fc809ecf9c0a73d97f13f7a16e7dbb20425ab97a6b2d9a0f6be0bbe1a326a7b",
+    "goods_in_transit": "17aa50b7697aba5598997b1b4bba9de3950169bc81e97fd10c4d8b0348bd9a3d",
+    "seasonality": "19bdbc1c2331d3643e39294f68f11f7427f625107e8b025f6663bb559af669ab"
+  },
+  "transaction_count": 77312,
+  "unique_skus_all_datasets": 724,
+  "warehouse_count": 1,
+  "warehouses": [
+    "Алматы"
+  ]
+}

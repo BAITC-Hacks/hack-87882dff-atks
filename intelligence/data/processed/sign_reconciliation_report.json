@@ -1,0 +1,349 @@
+{
+  "signs": {
+    "positive": {
+      "count": 76997,
+      "total_quantity": 6841676.0,
+      "document_types": {
+        "Расходная накладная": 76997
+      }
+    },
+    "negative": {
+      "count": 302,
+      "total_quantity": -4198.0,
+      "document_types": {
+        "Расходная накладная": 299,
+        "Заказ покупателя": 3
+      }
+    },
+    "zero": {
+      "count": 0,
+      "total_quantity": 0.0,
+      "document_types": {}
+    },
+    "missing": {
+      "count": 13,
+      "total_quantity": null,
+      "document_types": {
+        "Расходная накладная": 13
+      }
+    }
+  },
+  "methods": {
+    "A": {
+      "interpretation": "positive_only",
+      "all_matched_pairs": {
+        "pairs": 7384,
+        "comparable_pairs": 7008,
+        "unassessable_pairs": 376,
+        "mae": null,
+        "rmse": null,
+        "correlation": null,
+        "exact_match_rate": 0.36132177681473454,
+        "near_match_rate": 0.4123781148429036,
+        "aggregate_total_difference": null,
+        "reference_total": null,
+        "transaction_total": null
+      },
+      "excluding_missing_monthly_sales": {
+        "pairs": 7021,
+        "comparable_pairs": 7008,
+        "unassessable_pairs": 13,
+        "mae": 502.630850456621,
+        "rmse": 6111.366884764797,
+        "correlation": 0.8551663885457875,
+        "exact_match_rate": 0.3807077625570776,
+        "near_match_rate": 0.4345034246575342,
+        "aggregate_total_difference": 3406677.0,
+        "reference_total": 3229355.0,
+        "transaction_total": 6636032.0
+      },
+      "by_year_complete_cases": {
+        "2024": {
+          "pairs": 232,
+          "comparable_pairs": 232,
+          "unassessable_pairs": 0,
+          "mae": 86.33189655172414,
+          "rmse": 310.40924738491435,
+          "correlation": null,
+          "exact_match_rate": 0.0,
+          "near_match_rate": 0.0,
+          "aggregate_total_difference": -20029.0,
+          "reference_total": 20029.0,
+          "transaction_total": 0.0
+        },
+        "2025": {
+          "pairs": 4266,
+          "comparable_pairs": 4018,
+          "unassessable_pairs": 248,
+          "mae": 526.1692384270782,
+          "rmse": 7101.109476687459,
+          "correlation": 0.8146759820020292,
+          "exact_match_rate": 0.34270781483325036,
+          "near_match_rate": 0.4014435042309607,
+          "aggregate_total_difference": 2050526.0,
+          "reference_total": 1866497.0,
+          "transaction_total": 3917023.0
+        },
+        "2026": {
+          "pairs": 2886,
+          "comparable_pairs": 2758,
+          "unassessable_pairs": 128,
+          "mae": 503.3575054387237,
+          "rmse": 4629.389747277414,
+          "correlation": 0.9409045968661703,
+          "exact_match_rate": 0.46809282088469906,
+          "near_match_rate": 0.5192168237853517,
+          "aggregate_total_difference": 1376180.0,
+          "reference_total": 1342829.0,
+          "transaction_total": 2719009.0
+        }
+      }
+    },
+    "B": {
+      "interpretation": "absolute_negative_only",
+      "all_matched_pairs": {
+        "pairs": 7384,
+        "comparable_pairs": 7008,
+        "unassessable_pairs": 376,
+        "mae": null,
+        "rmse": null,
+        "correlation": null,
+        "exact_match_rate": 0.0071776814734561215,
+        "near_match_rate": 0.07055796316359697,
+        "aggregate_total_difference": null,
+        "reference_total": null,
+        "transaction_total": null
+      },
+      "excluding_missing_monthly_sales": {
+        "pairs": 7021,
+        "comparable_pairs": 7008,
+        "unassessable_pairs": 13,
+        "mae": 460.7083333333333,
+        "rmse": 3510.400444754736,
+        "correlation": -0.006353048487126379,
+        "exact_match_rate": 0.0075627853881278535,
+        "near_match_rate": 0.07434360730593607,
+        "aggregate_total_difference": -3225216.0,
+        "reference_total": 3229355.0,
+        "transaction_total": 4139.0
+      },
+      "by_year_complete_cases": {
+        "2024": {
+          "pairs": 232,
+          "comparable_pairs": 232,
+          "unassessable_pairs": 0,
+          "mae": 68.67672413793103,
+          "rmse": 301.13900874215364,
+          "correlation": 0.21441418416064237,
+          "exact_match_rate": 0.22413793103448276,
+          "near_match_rate": 0.3103448275862069,
+          "aggregate_total_difference": -15933.0,
+          "reference_total": 20029.0,
+          "transaction_total": 4096.0
+        },
+        "2025": {
+          "pairs": 4266,
+          "comparable_pairs": 4018,
+          "unassessable_pairs": 248,
+          "mae": 464.9469885515182,
+          "rmse": 3487.814809318514,
+          "correlation": null,
+          "exact_match_rate": 0.0,
+          "near_match_rate": 0.05823792931806869,
+          "aggregate_total_difference": -1866497.0,
+          "reference_total": 1866497.0,
+          "transaction_total": 0.0
+        },
+        "2026": {
+          "pairs": 2886,
+          "comparable_pairs": 2758,
+          "unassessable_pairs": 128,
+          "mae": 487.5105148658448,
+          "rmse": 3685.395765913624,
+          "correlation": 0.02034376634627704,
+          "exact_match_rate": 0.00036258158085569254,
+          "near_match_rate": 0.0779550398839739,
+          "aggregate_total_difference": -1342786.0,
+          "reference_total": 1342829.0,
+          "transaction_total": 43.0
+        }
+      }
+    },
+    "C": {
+      "interpretation": "signed_net",
+      "all_matched_pairs": {
+        "pairs": 7384,
+        "comparable_pairs": 7008,
+        "unassessable_pairs": 376,
+        "mae": null,
+        "rmse": null,
+        "correlation": null,
+        "exact_match_rate": 0.36132177681473454,
+        "near_match_rate": 0.4122426868905742,
+        "aggregate_total_difference": null,
+        "reference_total": null,
+        "transaction_total": null
+      },
+      "excluding_missing_monthly_sales": {
+        "pairs": 7021,
+        "comparable_pairs": 7008,
+        "unassessable_pairs": 13,
+        "mae": 503.20947488584477,
+        "rmse": 6111.38822270044,
+        "correlation": 0.8551647890569902,
+        "exact_match_rate": 0.3807077625570776,
+        "near_match_rate": 0.4343607305936073,
+        "aggregate_total_difference": 3402538.0,
+        "reference_total": 3229355.0,
+        "transaction_total": 6631893.0
+      },
+      "by_year_complete_cases": {
+        "2024": {
+          "pairs": 232,
+          "comparable_pairs": 232,
+          "unassessable_pairs": 0,
+          "mae": 103.98706896551724,
+          "rmse": 323.17278793560104,
+          "correlation": -0.21441418416064237,
+          "exact_match_rate": 0.0,
+          "near_match_rate": 0.0,
+          "aggregate_total_difference": -24125.0,
+          "reference_total": 20029.0,
+          "transaction_total": -4096.0
+        },
+        "2025": {
+          "pairs": 4266,
+          "comparable_pairs": 4018,
+          "unassessable_pairs": 248,
+          "mae": 526.1692384270782,
+          "rmse": 7101.109476687459,
+          "correlation": 0.8146759820020292,
+          "exact_match_rate": 0.34270781483325036,
+          "near_match_rate": 0.4014435042309607,
+          "aggregate_total_difference": 2050526.0,
+          "reference_total": 1866497.0,
+          "transaction_total": 3917023.0
+        },
+        "2026": {
+          "pairs": 2886,
+          "comparable_pairs": 2758,
+          "unassessable_pairs": 128,
+          "mae": 503.34263959390864,
+          "rmse": 4629.387852636435,
+          "correlation": 0.9409038217526341,
+          "exact_match_rate": 0.46809282088469906,
+          "near_match_rate": 0.518854242204496,
+          "aggregate_total_difference": 1376137.0,
+          "reference_total": 1342829.0,
+          "transaction_total": 2718966.0
+        }
+      }
+    },
+    "D": {
+      "interpretation": "absolute_all",
+      "all_matched_pairs": {
+        "pairs": 7384,
+        "comparable_pairs": 7008,
+        "unassessable_pairs": 376,
+        "mae": null,
+        "rmse": null,
+        "correlation": null,
+        "exact_match_rate": 0.3684994582881907,
+        "near_match_rate": 0.4221289274106175,
+        "aggregate_total_difference": null,
+        "reference_total": null,
+        "transaction_total": null
+      },
+      "excluding_missing_monthly_sales": {
+        "pairs": 7021,
+        "comparable_pairs": 7008,
+        "unassessable_pairs": 13,
+        "mae": 502.05222602739724,
+        "rmse": 6111.352113645839,
+        "correlation": 0.8551675482482065,
+        "exact_match_rate": 0.3882705479452055,
+        "near_match_rate": 0.444777397260274,
+        "aggregate_total_difference": 3410816.0,
+        "reference_total": 3229355.0,
+        "transaction_total": 6640171.0
+      },
+      "by_year_complete_cases": {
+        "2024": {
+          "pairs": 232,
+          "comparable_pairs": 232,
+          "unassessable_pairs": 0,
+          "mae": 68.67672413793103,
+          "rmse": 301.13900874215364,
+          "correlation": 0.21441418416064237,
+          "exact_match_rate": 0.22413793103448276,
+          "near_match_rate": 0.3103448275862069,
+          "aggregate_total_difference": -15933.0,
+          "reference_total": 20029.0,
+          "transaction_total": 4096.0
+        },
+        "2025": {
+          "pairs": 4266,
+          "comparable_pairs": 4018,
+          "unassessable_pairs": 248,
+          "mae": 526.1692384270782,
+          "rmse": 7101.109476687459,
+          "correlation": 0.8146759820020292,
+          "exact_match_rate": 0.34270781483325036,
+          "near_match_rate": 0.4014435042309607,
+          "aggregate_total_difference": 2050526.0,
+          "reference_total": 1866497.0,
+          "transaction_total": 3917023.0
+        },
+        "2026": {
+          "pairs": 2886,
+          "comparable_pairs": 2758,
+          "unassessable_pairs": 128,
+          "mae": 503.37237128353877,
+          "rmse": 4629.391705593118,
+          "correlation": 0.9409053675049696,
+          "exact_match_rate": 0.4684554024655547,
+          "near_match_rate": 0.5192168237853517,
+          "aggregate_total_difference": 1376223.0,
+          "reference_total": 1342829.0,
+          "transaction_total": 2719052.0
+        }
+      }
+    }
+  },
+  "matched_sku_months": 7384,
+  "missing_monthly_sales_in_matched_pairs": 363,
+  "transaction_groups_with_missing_quantities": 13,
+  "notes": [
+    "Near match means absolute difference <= 1 source unit.",
+    "Full-set error metrics are undefined if any paired value is unknown.",
+    "Full-set match rates are lower bounds: unknown pairs are not matches.",
+    "Filtered metrics use complete pairs, excluding missing reference and transaction aggregates.",
+    "No absent SKU/month or blank cell is imputed as zero.",
+    "Negative movements are concentrated before the positive transaction coverage; document type alone does not identify returns."
+  ],
+  "transaction_sign_by_year": {
+    "2023": {
+      "positive": 0,
+      "negative": 6
+    },
+    "2024": {
+      "positive": 0,
+      "negative": 292
+    },
+    "2025": {
+      "positive": 45577,
+      "negative": 0
+    },
+    "2026": {
+      "positive": 31420,
+      "negative": 4
+    }
+  },
+  "decision": {
+    "selected_transaction_interpretation": null,
+    "demand_source": "official_monthly_sales",
+    "reason": "None of A–D reliably reproduces the reference. Error rankings conflict, coverage differs by sign/year, and totals disagree substantially. Transaction sales/return semantics remain unresolved.",
+    "best_rmse_method": "B",
+    "best_mae_method": "B"
+  }
+}

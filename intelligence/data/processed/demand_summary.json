@@ -1,0 +1,37 @@
+{
+  "bulk_config": {
+    "min_history": 6,
+    "window_months": 12,
+    "robust_z_threshold": 6.0,
+    "iqr_multiplier": 3.0,
+    "median_multiplier": 3.0
+  },
+  "bulk_outlier_periods": 105,
+  "bulk_outlier_skus": 69,
+  "bulk_quantity_excluded": 30111.0,
+  "negative_net_correction_periods": 323,
+  "negative_net_correction_quantity": -5192.0,
+  "stockout_periods_all_inventory": 0,
+  "unknown_inventory_periods_all_inventory": 5133,
+  "stockout_periods_sales_universe": 0,
+  "unknown_inventory_periods_sales_universe": 2205,
+  "estimated_lost_demand": 0.0,
+  "lost_demand_skus": 0,
+  "skus_affected_by_bulk_or_lost_demand": 69,
+  "correction_status_counts": {
+    "no_stockout": 16077,
+    "inventory_unknown": 2205
+  },
+  "raw_files_unchanged": true,
+  "limitations": [
+    "Bulk flags identify abnormal monthly totals, not confirmed one-time orders.",
+    "No customer identifier is available or fabricated.",
+    "Flagged months are excluded from regular demand with NA, not imputed zero.",
+    "Negative monthly net corrections remain in observed demand and the corrections audit.",
+    "Monthly stock snapshots cannot prove continuous availability throughout a month.",
+    "Lost demand is estimated only for observed nonpositive stock with sufficient prior available-stock regular history.",
+    "Unknown inventory leaves lost demand unknown; no uplift is applied.",
+    "Seasonality and trend use strictly prior SKU history; aggregate seasonality units are unspecified and not blended in.",
+    "Legacy transactions.csv demand/movement_type fields are provisional and superseded by the unresolved transaction semantics audit."
+  ]
+}
